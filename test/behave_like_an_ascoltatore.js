@@ -114,18 +114,22 @@ module.exports = function() {
     ]);
   });
 
-  it("should support at least 10 listeners", function(done) {
-    var that = this;
-    var step = function(cb) {
-      that.instance.sub("hello", function() {
-        cb();
-      });
-    };
-    var a = [];
-    for(var i = 11; i > 0; i--) a.push(step);
-    a.push(function(cb) { that.instance.publish("hello", null, cb) });
+  it("support at least 10 listeners", function(done) {
+    var instance = this.instance;
 
-    async.parallel(a, wrap(done));
+    var counter = 11;
+    var callback = function() {
+      if(--counter == 0) {
+        done();
+      }
+    };
+
+    var a = [];
+    for(var i = counter; i > 0; i--) {
+      a.push(instance.sub.bind(instance, "hello", callback));
+    }
+
+    async.parallel(a, instance.publish.bind(instance, "hello", null));
   });
 
   it("should emit the ready event", function(done) {
