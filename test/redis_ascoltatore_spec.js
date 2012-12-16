@@ -1,3 +1,4 @@
+var assert = require("assert");
 
 describe(ascoltatori.RedisAscoltatore, function() {
 
@@ -27,4 +28,12 @@ describe(ascoltatori.RedisAscoltatore, function() {
       }
     ]);
   });
+
+  it('should get the redis client already created', function alreadyCreated(){
+    var opts = redisSettings();
+    var initialConnection = opts.redis.createClient(opts.port, opts.host, opts);
+    opts.client = initialConnection;
+    var other = new ascoltatori.RedisAscoltatore(opts);
+    assert.equal(initialConnection, other._client_conn);
+  })
 });
