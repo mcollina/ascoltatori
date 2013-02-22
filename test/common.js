@@ -13,6 +13,14 @@ var portCounter = 50042;
 global.nextPort = function () {
   return ++portCounter;
 };
+global.statsChannel = 'stats';
+global.statsWrap = function (done) {
+    return function (channel) {
+        if (channel.indexOf(statsChannel) === -1) {
+            done();
+        }
+    };
+};
 
 global.zeromqSettings = function (remote_ports) {
   return {
