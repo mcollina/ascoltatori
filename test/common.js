@@ -1,3 +1,5 @@
+"use strict";
+
 global.sinon = require("sinon");
 global.chai = require("chai");
 global.expect = require("chai").expect;
@@ -42,15 +44,20 @@ global.mqttSettings = function () {
   };
 };
 
+global.mongoSettings = function () {
+  return {
+
+  };
+};
+
 var mosca = require("mosca");
 
 global.mqttServer = new mosca.Server({ port: 5883 });
 
 global.ascoltatori = require("../");
 
-global.behaveLikeAnAscoltatore = ascoltatori.behaveLikeAnAscoltatore;
+global.behaveLikeAnAscoltatore = global.ascoltatori.behaveLikeAnAscoltatore;
 
 global.wrap = require("../lib/util").wrap;
 
-var sinonChai = require("sinon-chai");
-chai.use(sinonChai);
+global.chai.use(require("sinon-chai"));
