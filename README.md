@@ -4,7 +4,7 @@ Ascoltatori
 [![Build
 Status](https://travis-ci.org/mcollina/ascoltatori.png)](https://travis-ci.org/mcollina/ascoltatori)
 
-__Ascoltatori__ is the publish/subscribe library that support every
+__Ascoltatori__ is the publish/subscribe library that supports every
 broker/protocol out there.
 This list currently includes:
 
