@@ -36,4 +36,15 @@ describe("ascoltatori.MQTTAscoltatore", function() {
       }
     ]);
   });
+  
+  it("should publish with options", function(done) {
+    var that = this;
+    that.instance.subscribe("hello/*", function(topic, value, options) {
+      expect(value).to.equal("42");
+      expect(options.qos).to.equal(0);
+      done();
+    }, function () {
+      that.instance.publish("hello/123", "42", { qos: 0 });
+    });
+  });
 });
