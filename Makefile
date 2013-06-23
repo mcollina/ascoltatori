@@ -22,34 +22,38 @@ bench-clean:
 bench-setup: bench-clean
 	mkdir -p ./benchmarks/results
 
-RUNS=100
+BENCH_ARGS="-r 100"
 bench-1: bench-setup
-	node ./benchmarks/multi_listeners.js -c MemoryAscoltatore -r $(RUNS) -l 1 -d >> ./benchmarks/results/multi_listeners
-	node ./benchmarks/multi_listeners.js -c RedisAscoltatore -r $(RUNS) -l 1 >> ./benchmarks/results/multi_listeners
-	node ./benchmarks/multi_listeners.js -c ZeromqAscoltatore -r $(RUNS) -l 1 >> ./benchmarks/results/multi_listeners
-	node ./benchmarks/multi_listeners.js -c AMQPAscoltatore -r $(RUNS) -l 1 >> ./benchmarks/results/multi_listeners
-	node ./benchmarks/multi_listeners.js -c MQTTAscoltatore -r $(RUNS) -l 1 >> ./benchmarks/results/multi_listeners
+	node ./benchmarks/multi_listeners.js -c MemoryAscoltatore $(BENCH_ARGS) -l 1 -d >> ./benchmarks/results/multi_listeners
+	node ./benchmarks/multi_listeners.js -c TrieAscoltatore $(BENCH_ARGS) -l 1 >> ./benchmarks/results/multi_listeners
+	node ./benchmarks/multi_listeners.js -c RedisAscoltatore $(BENCH_ARGS) -l 1 >> ./benchmarks/results/multi_listeners
+	node ./benchmarks/multi_listeners.js -c ZeromqAscoltatore $(BENCH_ARGS) -l 1 >> ./benchmarks/results/multi_listeners
+	node ./benchmarks/multi_listeners.js -c AMQPAscoltatore $(BENCH_ARGS) -l 1 >> ./benchmarks/results/multi_listeners
+	node ./benchmarks/multi_listeners.js -c MQTTAscoltatore $(BENCH_ARGS) -l 1 >> ./benchmarks/results/multi_listeners
 
 bench-10: bench-setup
-	node ./benchmarks/multi_listeners.js -c MemoryAscoltatore -r $(RUNS) -l 10 >> ./benchmarks/results/multi_listeners
-	node ./benchmarks/multi_listeners.js -c RedisAscoltatore -r $(RUNS) -l 10 >> ./benchmarks/results/multi_listeners
-	node ./benchmarks/multi_listeners.js -c ZeromqAscoltatore -r $(RUNS) -l 10 >> ./benchmarks/results/multi_listeners
-	node ./benchmarks/multi_listeners.js -c AMQPAscoltatore -r $(RUNS) -l 10 >> ./benchmarks/results/multi_listeners
-	node ./benchmarks/multi_listeners.js -c MQTTAscoltatore -r $(RUNS) -l 10 >> ./benchmarks/results/multi_listeners
+	node ./benchmarks/multi_listeners.js -c MemoryAscoltatore $(BENCH_ARGS) -l 10 >> ./benchmarks/results/multi_listeners
+	node ./benchmarks/multi_listeners.js -c TrieAscoltatore $(BENCH_ARGS) -l 10 >> ./benchmarks/results/multi_listeners
+	node ./benchmarks/multi_listeners.js -c RedisAscoltatore $(BENCH_ARGS) -l 10 >> ./benchmarks/results/multi_listeners
+	node ./benchmarks/multi_listeners.js -c ZeromqAscoltatore $(BENCH_ARGS) -l 10 >> ./benchmarks/results/multi_listeners
+	node ./benchmarks/multi_listeners.js -c AMQPAscoltatore $(BENCH_ARGS) -l 10 >> ./benchmarks/results/multi_listeners
+	node ./benchmarks/multi_listeners.js -c MQTTAscoltatore $(BENCH_ARGS) -l 10 >> ./benchmarks/results/multi_listeners
 
 bench-100: bench-setup
-	node ./benchmarks/multi_listeners.js -c MemoryAscoltatore -r $(RUNS) -l 100 >> ./benchmarks/results/multi_listeners
-	node ./benchmarks/multi_listeners.js -c RedisAscoltatore -r $(RUNS) -l 100 >> ./benchmarks/results/multi_listeners
-	node ./benchmarks/multi_listeners.js -c ZeromqAscoltatore -r $(RUNS) -l 100 >> ./benchmarks/results/multi_listeners
-	node ./benchmarks/multi_listeners.js -c AMQPAscoltatore -r $(RUNS) -l 100 >> ./benchmarks/results/multi_listeners
-	node ./benchmarks/multi_listeners.js -c MQTTAscoltatore -r $(RUNS) -l 100 >> ./benchmarks/results/multi_listeners
+	node ./benchmarks/multi_listeners.js -c MemoryAscoltatore $(BENCH_ARGS) -l 100 >> ./benchmarks/results/multi_listeners
+	node ./benchmarks/multi_listeners.js -c TrieAscoltatore $(BENCH_ARGS) -l 100 >> ./benchmarks/results/multi_listeners
+	node ./benchmarks/multi_listeners.js -c RedisAscoltatore $(BENCH_ARGS) -l 100 >> ./benchmarks/results/multi_listeners
+	node ./benchmarks/multi_listeners.js -c ZeromqAscoltatore $(BENCH_ARGS) -l 100 >> ./benchmarks/results/multi_listeners
+	node ./benchmarks/multi_listeners.js -c AMQPAscoltatore $(BENCH_ARGS) -l 100 >> ./benchmarks/results/multi_listeners
+	node ./benchmarks/multi_listeners.js -c MQTTAscoltatore $(BENCH_ARGS) -l 100 >> ./benchmarks/results/multi_listeners
 
 bench-1000: bench-setup
-	node ./benchmarks/multi_listeners.js -c MemoryAscoltatore -r $(RUNS) -l 1000 >> ./benchmarks/results/multi_listeners
-	node ./benchmarks/multi_listeners.js -c RedisAscoltatore -r $(RUNS) -l 1000 >> ./benchmarks/results/multi_listeners
-	node ./benchmarks/multi_listeners.js -c ZeromqAscoltatore -r $(RUNS) -l 1000 >> ./benchmarks/results/multi_listeners
-	node ./benchmarks/multi_listeners.js -c AMQPAscoltatore -r $(RUNS) -l 1000 >> ./benchmarks/results/multi_listeners
-	node ./benchmarks/multi_listeners.js -c MQTTAscoltatore -r $(RUNS) -l 1000 >> ./benchmarks/results/multi_listeners
+	node ./benchmarks/multi_listeners.js -c MemoryAscoltatore $(BENCH_ARGS) -l 1000 >> ./benchmarks/results/multi_listeners
+	node ./benchmarks/multi_listeners.js -c TrieAscoltatore $(BENCH_ARGS) -l 1000 >> ./benchmarks/results/multi_listeners
+	node ./benchmarks/multi_listeners.js -c RedisAscoltatore $(BENCH_ARGS) -l 1000 >> ./benchmarks/results/multi_listeners
+	node ./benchmarks/multi_listeners.js -c ZeromqAscoltatore $(BENCH_ARGS) -l 1000 >> ./benchmarks/results/multi_listeners
+	node ./benchmarks/multi_listeners.js -c AMQPAscoltatore $(BENCH_ARGS) -l 1000 >> ./benchmarks/results/multi_listeners
+	node ./benchmarks/multi_listeners.js -c MQTTAscoltatore $(BENCH_ARGS) -l 1000 >> ./benchmarks/results/multi_listeners
 
 bench: bench-clean bench-1 bench-10 bench-100 bench-1000
 
