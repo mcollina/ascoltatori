@@ -7,6 +7,10 @@ module.exports.TrieAscoltatore = function() {
   return {};
 };
 
+module.exports.EventEmitter2Ascoltatore = function() {
+  return {};
+};
+
 module.exports.RedisAscoltatore = function() {
   return {
     redis: require('redis')

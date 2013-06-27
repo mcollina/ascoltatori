@@ -46,7 +46,7 @@ var argv = require('optimist').
   alias("l", "listeners").
   alias("d", "header").
   alias("w", "wildcard").
-  describe("c", "use the specified class MemoryAscoltatore, TrieAscoltatore, RedisAscoltatore, AMQPAscoltatore, ZeromqAscoltatore").
+  describe("c", "use the specified class MemoryAscoltatore, TrieAscoltatore, EventEmitter2Ascoltatore, RedisAscoltatore, AMQPAscoltatore, ZeromqAscoltatore").
   describe("r", "the number of runs of this bench").
   describe("l", "the listeners to attach to use in each bench").
   describe("d", "write the header of the CSV sequence").
@@ -55,7 +55,7 @@ var argv = require('optimist').
   boolean("wildcard").
   check(function(args) {
     if(ascoltatori[args.class] === undefined) {
-      throw "ERROR: You can specify only one of: MemoryAscoltatore, TrieAscoltatore, RedisAscoltatore, AMQPAscoltatore, ZeromqAscoltatore";
+      throw "ERROR: You can specify only one of: MemoryAscoltatore, TrieAscoltatore, EventEmitter2Ascoltatore, RedisAscoltatore, AMQPAscoltatore, ZeromqAscoltatore";
     }
   }).
   argv;
