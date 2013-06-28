@@ -10,6 +10,8 @@ before_install:
  - sudo make install
  - sudo /sbin/ldconfig
  - cd ..
+before_script:
+ - (cd node_modules/mosca/node_modules && rm -rf ascoltatori && ln -s ../../.. ascoltatori)
 language: node_js
 node_js:
   - 0.8
