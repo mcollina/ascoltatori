@@ -45,12 +45,12 @@ var ascoltatori = require('ascoltatori');
 ascoltatori.build(function (ascoltatore) {
 
   ascoltatore.subscribe("hello/*", function() {
-    // this will print { '0': "hello/42", '1': "a message" }
+    // this will print { '0': "hello/world/42", '1': "a message" }
     console.log(arguments); 
     process.exit(0);
   });
 
-  ascoltatore.publish("hello/42", "a message", function() {
+  ascoltatore.publish("hello/world/42", "a message", function() {
     console.log("message published");
   });
 });
@@ -63,45 +63,114 @@ EventEmitter2Ascoltatore.
 In the test/common.js file you can find all the options for
 all the ascoltatori.
 
-All ascoltatori supports the use of a wildcards, so everything
-should work smoothly on every broker.
-You might find some differences, and in that case file a bug
-report, so I can fix them.
+## Topics
 
-Ascoltatori also support the '+' operator, which match only one step in
-in a tree of topics:
+Consider the example below:
+
 ```
 var ascoltatori = require('ascoltatori');
 
 ascoltatori.build(function (ascoltatore) {
 
-  ascolatore.subscribe("hello/+", function() {
-    // this will print { '0': "hello/world/42", '1': "a message" }
+  ascoltatore.subscribe("hello", function() {
+    // this will print { '0': "hello", '1': "a message" }
     console.log(arguments); 
   });
 
-  ascoltatore.publish("hello/42", "a message", function() {
+  ascoltatore.publish("hello", "a message", function() {
     console.log("message published");
   });
 });
 ```
 
-This is an example with both a '*' and a '+':
+We're publishing messages to the topic `hello`. Topics are always strings but they can contain multiple words, where the words are delimited by the `/` character.
+
+For example:
+
+```
+var ascoltatori = require('ascoltatori');
+
+ascoltatori.build(function (ascoltatore) {
+
+  ascoltatore.subscribe("hello/there/world", function() {
+    // this will print { '0': "hello/there/world", '1': "a message" }
+    console.log(arguments); 
+  });
+
+  ascoltatore.publish("hello/there/world", "a message", function() {
+    console.log("message published");
+  });
+});
+```
+
+## Wildcards
+
+All ascoltatori support the use of wildcards, so everything should work smoothly on every broker. You might find some differences, and in that case file a bug report, so I can fix them.
+
+The wildcard character `+` matches exactly one word:
+
+```
+var ascoltatori = require('ascoltatori');
+
+ascoltatori.build(function (ascoltatore) {
+
+  ascoltatore.subscribe("hello/+/world", function() {
+    // this will print { '0': "hello/there/world", '1': "a message" }
+    console.log(arguments); 
+  });
+
+  ascoltatore.subscribe("hello/+", function() {
+    // this will not be called
+    console.log(arguments); 
+  });
+
+  ascoltatore.publish("hello/there/world", "a message", function() {
+    console.log("message published");
+  });
+});
+```
+
+The wildcard character `*` matches zero or more words:
+
 ```
 var ascoltatori = require('ascoltatori');
 
 ascoltatori.build(function (ascoltatore) {
 
   ascoltatore.subscribe("hello/*", function() {
-    // this will print { '0': "hello/world/42", '1': "a message" }
+    // this will print { '0': "hello/there/world", '1': "a message" }
     console.log(arguments); 
   });
 
-  ascolatore.subscribe("hello/+", function() {
-    // this will not be called
+  ascoltatore.subscribe("*", function() {
+    // this will print { '0': "hello/there/world", '1': "a message" }
+    console.log(arguments); 
   });
 
-  ascoltatore.publish("hello/world/42", "a message", function() {
+  ascoltatore.subscribe("hello/there/world/*", function() {
+    // this will print { '0': "hello/there/world", '1': "a message" }
+    console.log(arguments); 
+  });
+
+  ascoltatore.publish("hello/there/world", "a message", function() {
+    console.log("message published");
+  });
+});
+```
+
+Of course, you can mix `*` and `+` in the same topic:
+
+```
+var ascoltatori = require('ascoltatori');
+
+ascoltatori.build(function (ascoltatore) {
+
+  ascoltatore.subscribe("hello/+/world/*", function() {
+    // this will print { '0': "hello/foo/world/bar/42", '1': "a message" }
+    console.log(arguments); 
+  });
+
+  ascoltatore.publish("hello/foo/world/bar/42", "a message", function() {
     console.log("message published");
   });
 });
