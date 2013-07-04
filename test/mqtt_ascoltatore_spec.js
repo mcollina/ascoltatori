@@ -1,6 +1,6 @@
 describe("ascoltatori.MQTTAscoltatore", function() {
 
-  behaveLikeAnAscoltatore();
+  behaveLikeAnAscoltatore(ascoltatori.MQTTAscoltatore, "mqtt", mqttSettings);
 
   beforeEach(function(done) {
     this.instance = new ascoltatori.MQTTAscoltatore(mqttSettings());

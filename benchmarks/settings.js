@@ -1,8 +1,4 @@
 
-module.exports.MemoryAscoltatore = function() {
-  return {};
-};
-
 module.exports.TrieAscoltatore = function() {
   return {};
 };

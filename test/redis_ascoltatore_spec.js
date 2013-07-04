@@ -1,6 +1,6 @@
 describe("ascoltatori.RedisAscoltatore", function() {
 
-  behaveLikeAnAscoltatore();
+  behaveLikeAnAscoltatore(ascoltatori.RedisAscoltatore, "redis", redisSettings);
 
   beforeEach(function(done) {
     this.instance = new ascoltatori.RedisAscoltatore(redisSettings());

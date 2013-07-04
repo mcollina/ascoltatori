@@ -1,6 +1,6 @@
 describe("ascoltatori.AMQPAscoltatore", function() {
 
-  behaveLikeAnAscoltatore();
+  behaveLikeAnAscoltatore(ascoltatori.AMQPAscoltatore, "amqp", rabbitSettings);
 
   beforeEach(function(done) {
     this.instance = new ascoltatori.AMQPAscoltatore(rabbitSettings());

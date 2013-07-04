@@ -49,7 +49,20 @@ global.mongoSettings = function() {
     uri: 'mongodb://127.0.0.1/',
     db: 'ascoltatori',
     pubsubCollection: 'pubsub',
+    json: false,
     mongo: {} // put here your mongo-specific options!
+  };
+};
+
+global.trieSettings = function() {
+  return {
+    json: false
+  };
+};
+
+global.eventEmitter2Settings = function() {
+  return {
+    json: false
   };
 };
 
@@ -64,7 +77,13 @@ global.mqttServer = new mosca.Server({
 
 global.ascoltatori = require("../");
 
-global.behaveLikeAnAscoltatore = global.ascoltatori.behaveLikeAnAscoltatore;
+global.behaveLikeAnAscoltatore = function (Class, type, makeSettings) {
+  describe("can be used by ascoltatori", function () {
+    global.ascoltatori.canBeUsedByAscoltatori(Class, type, makeSettings);
+  });
+
+  global.ascoltatori.behaveLikeAnAscoltatore();
+};
 
 global.wrap = require("../lib/util").wrap;
 

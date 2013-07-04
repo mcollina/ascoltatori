@@ -1,6 +1,6 @@
 describe("ascoltatori.MongoAscoltatore", function() {
 
-  behaveLikeAnAscoltatore();
+  behaveLikeAnAscoltatore(ascoltatori.MongoAscoltatore, "mongo", mongoSettings);
 
   beforeEach(function(done) {
     this.instance = new ascoltatori.MongoAscoltatore(mongoSettings());

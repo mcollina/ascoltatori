@@ -1,6 +1,6 @@
 describe("ascoltatori.ZeromqAscoltatore", function() {
 
-  behaveLikeAnAscoltatore();
+  behaveLikeAnAscoltatore(ascoltatori.ZeromqAscoltatore, "zmq", zeromqSettings);
 
   var toClose = null;
 

@@ -1,6 +1,8 @@
 describe("ascoltatori.EventEmitter2Ascoltatore", function() {
 
-  behaveLikeAnAscoltatore();
+  behaveLikeAnAscoltatore(ascoltatori.EventEmitter2Ascoltatore,
+                          "eventemitter2",
+                          eventEmitter2Settings);
 
   beforeEach(function(done) {
     this.instance = new ascoltatori.EventEmitter2Ascoltatore();

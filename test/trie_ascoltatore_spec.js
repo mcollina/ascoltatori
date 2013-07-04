@@ -1,6 +1,6 @@
 describe("ascoltatori.TrieAscoltatore", function() {
 
-  behaveLikeAnAscoltatore();
+  behaveLikeAnAscoltatore(ascoltatori.TrieAscoltatore);
 
   beforeEach(function(done) {
     this.instance = new ascoltatori.TrieAscoltatore();

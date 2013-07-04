@@ -1,9 +1,13 @@
 describe("ascoltatori.JSONAscoltatore", function() {
 
-  behaveLikeAnAscoltatore();
+  behaveLikeAnAscoltatore(ascoltatori.JSONAscoltatore,
+                          null,
+                          function () {
+                            return new ascoltatori.TrieAscoltatore();
+                          });
 
   beforeEach(function(done) {
-    this.included = new ascoltatori.MemoryAscoltatore();
+    this.included = new ascoltatori.TrieAscoltatore();
     this.instance = new ascoltatori.JSONAscoltatore(this.included);
     this.instance.on("ready", done);
   });

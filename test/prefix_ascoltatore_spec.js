@@ -1,9 +1,13 @@
 describe("ascoltatori.PrefixAscoltatore", function() {
 
-  behaveLikeAnAscoltatore();
+  behaveLikeAnAscoltatore(ascoltatori.PrefixAscoltatore,
+                          null,
+                          function () {
+                            return ["/myprefix", new ascoltatori.TrieAscoltatore()];
+                          });
 
   beforeEach(function(done) {
-    this.included = new ascoltatori.MemoryAscoltatore();
+    this.included = new ascoltatori.TrieAscoltatore();
     this.instance = new ascoltatori.PrefixAscoltatore("/myprefix", this.included);
     this.instance.on("ready", done);
   });
