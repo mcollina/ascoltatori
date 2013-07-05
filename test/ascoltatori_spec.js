@@ -57,28 +57,4 @@ describe("ascoltatori", function() {
       a.close(done);
     });
   });
-
-
-    /*it("should create a new AbstractAscoltatore using function", function() {
-      function DummyAscoltatore(options, ascoltatori) {
-        ascoltatori.AbstractAscoltatore.call(this);
-
-        this.close = function (done) {
-          done();
-        };
-
-        this.emit("ready");
-      }
-
-      DummyAscoltatore.prototype = Object.create(ascoltatori.AbstractAscoltatore.prototype);
-
-      var a = ascoltatori.build({
-        json: false,
-        type: DummyAscoltatore
-      });
-      toClose.push(a);
-      expect(a).to.be.instanceOf(ascoltatori.AbstractAscoltatore);
-    });*/
-
-
 });

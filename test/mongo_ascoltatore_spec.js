@@ -7,11 +7,7 @@ describe("ascoltatori.MongoAscoltatore", function() {
     this.instance.on("ready", done);
   });
 
-  afterEach(function() {
-    this.instance.close();
-  });
-
-  it("should do nothing", function(done) {
-    done();
+  afterEach(function(done) {
+    this.instance.close(done);
   });
 });
