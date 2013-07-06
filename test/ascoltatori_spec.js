@@ -1,4 +1,3 @@
-
 describe("ascoltatori", function() {
   var makeFakeAscoltatore = function() {
     var r = {};

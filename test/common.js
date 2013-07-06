@@ -81,7 +81,11 @@ global.mqttServer = new mosca.Server({
   }
 });
 
-global.ascoltatori = require("../");
+if (process.env.COVER) {
+  global.ascoltatori = require("../lib-cov/ascoltatori");
+} else {
+  global.ascoltatori = require("../");
+}
 
 global.behaveLikeAnAscoltatore = function (Class, type, makeSettings) {
   describe("can be used by ascoltatori", function () {

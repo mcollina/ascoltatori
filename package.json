@@ -44,7 +44,8 @@
     "dox-foundation": "0.4.4",
     "mosca": "git://github.com/mcollina/mosca.git",
     "jshint": "~1.1.0",
-    "js-beautify": "~0.4.2"
+    "js-beautify": "~0.4.2",
+    "istanbul": "~0.1.40"
   },
   "dependencies": {
     "async": "~0.2.6",
