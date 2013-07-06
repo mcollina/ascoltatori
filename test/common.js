@@ -66,6 +66,12 @@ global.eventEmitter2Settings = function() {
   };
 };
 
+global.trieSettings = function() {
+  return {
+    json: false
+  };
+};
+
 var mosca = require("mosca");
 
 global.mqttServer = new mosca.Server({
