@@ -36,7 +36,7 @@ __Ascoltatori__ is built to be extremely easy to use, and can provide a
 useful abstraction for every compatible pub/sub broker.
 In this way you can choose whatever broker suits you.
 
-```
+```js
 var ascoltatori = require('ascoltatori');
 
 ascoltatori.build(function (ascoltatore) {
@@ -64,7 +64,7 @@ all the ascoltatori.
 
 Consider the example below:
 
-```
+```js
 var ascoltatori = require('ascoltatori');
 
 ascoltatori.build(function (ascoltatore) {
@@ -84,7 +84,7 @@ We're publishing messages to the topic `hello`. Topics are always strings but th
 
 For example:
 
-```
+```js
 var ascoltatori = require('ascoltatori');
 
 ascoltatori.build(function (ascoltatore) {
@@ -106,7 +106,7 @@ All ascoltatori support the use of wildcards, so everything should work smoothly
 
 The wildcard character `+` matches exactly one word:
 
-```
+```js
 var ascoltatori = require('ascoltatori');
 
 ascoltatori.build(function (ascoltatore) {
@@ -129,7 +129,7 @@ ascoltatori.build(function (ascoltatore) {
 
 The wildcard character `*` matches zero or more words:
 
-```
+```js
 var ascoltatori = require('ascoltatori');
 
 ascoltatori.build(function (ascoltatore) {
@@ -157,7 +157,7 @@ ascoltatori.build(function (ascoltatore) {
 
 Of course, you can mix `*` and `+` in the same topic:
 
-```
+```js
 var ascoltatori = require('ascoltatori');
 
 ascoltatori.build(function (ascoltatore) {
@@ -179,7 +179,7 @@ This library does not depend directly on redis, AMQP (RabbitMQ),
 0MQ, MQTT.js, but rather it encourages you to pass them to the
 ascoltatori via an options object, like so (for Redis):
 
-```
+```js
 var ascoltatori = require('ascoltatori');
 
 var settings = {
@@ -209,7 +209,7 @@ By default, every ascoltatore built by the `ascoltatori.build`
 wraps every published message in a JSON format.
 This behaviour can be triggered off by passing a `{ json: false }`
 settings object, like so:
-```
+```js
 require('ascoltatori').build({ json: false }, function(a) {
   // ...
 });
@@ -224,7 +224,7 @@ __Ascoltatori__ properly supports the [node.js domain API](http://nodejs.org/api
 To use it, you have to call the `registerDomain` function on your
 _Ascoltatore_, and it will take care of routing the exceptions to the
 given domain. Look at this example:
-```
+```js
 var ascoltatori = require('ascoltatori');
 var domain      = require("domain");
 
