@@ -11,7 +11,7 @@ before_install:
  - sudo /sbin/ldconfig
  - cd ..
 before_script:
- - (cd node_modules/mosca/node_modules && rm -rf ascoltatori && ln -s ../../.. ascoltatori)
+ - (cd node_modules/mosca/node_modules && rm -rf ascoltatori && mkdir ascoltatori && tar -c --exclude node_modules ../../.. | tar -x -C ascoltatori)
 script:
  - make publish-coverage
 language: node_js
