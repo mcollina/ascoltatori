@@ -203,7 +203,10 @@ settings = {
   json: false,
   mqtt: require('mqtt'),
   host: '127.0.0.1',
-  port: 1883
+  port: 1883,
+  keyPath: 'path/to/cert.key',
+  certPath: 'path/to/cert.cert',
+  rejectUnauthorized: true
 };
 
 ascoltatori.build(settings, function (ascoltatore) {
