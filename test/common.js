@@ -59,6 +59,12 @@ global.trieSettings = function() {
   };
 };
 
+global.fileSystemSettings = function() {
+  return {
+    json: false
+  };
+};
+
 global.eventEmitter2Settings = function() {
   return {
     json: false
