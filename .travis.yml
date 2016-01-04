@@ -1,33 +1,58 @@
 env:
   - MONGODB_VERSION="2.6*"
-  - MONGODB_VERSION="2.8*"
   - MONGODB_VERSION="3.0*"
+  - MONGODB_VERSION="3.2*"
 
 before_install:
-  # MongoDB
+  # GCC-4.8
   - sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10
+  # MongoDB
+  - if [[ "$TRAVIS_NODE_VERSION" != 0.* ]]; then sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test; fi
   - if [ "$MONGODB_VERSION" = "2.4*" ]; then echo "deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen" | sudo tee /etc/apt/sources.list.d/mongodb.list; fi
   - if [ "$MONGODB_VERSION" = "2.6*" ]; then echo "deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen" | sudo tee /etc/apt/sources.list.d/mongodb.list; fi
-  - if [ "$MONGODB_VERSION" = "2.8*" ]; then echo "deb http://repo.mongodb.org/apt/ubuntu "$(lsb_release -sc)"/mongodb-org/testing multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-2.8.list; fi
-  - if [ "$MONGODB_VERSION" = "3.0*" ]; then echo "deb http://repo.mongodb.org/apt/ubuntu "$(lsb_release -sc)"/mongodb-org/testing multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-2.8.list; fi
-  - sudo apt-get update
-  - if [ "$MONGODB_VERSION" = "2.4*" ]; then sudo apt-get install -y mongodb-10gen=`echo $MONGODB_VERSION`; fi
-  - if [ "$MONGODB_VERSION" != "2.4*" ]; then sudo apt-get install -y mongodb-org-server=`echo $MONGODB_VERSION`; fi
+  - if [ "$MONGODB_VERSION" = "3.0*" ]; then echo "deb http://repo.mongodb.org/apt/ubuntu "$(lsb_release -sc)"/mongodb-org/3.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.0.list; fi
+  - if [ "$MONGODB_VERSION" = "3.2*" ]; then echo "deb http://repo.mongodb.org/apt/ubuntu "$(lsb_release -sc)"/mongodb-org/testing multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.1.list; fi
+  - sudo apt-get update -qq
+
+install:
+  - sudo apt-get install libzmq3-dev
+  - if [ "$MONGODB_VERSION" = "2.4*" ]; then sudo apt-get install -y -qq mongodb-10gen=`echo $MONGODB_VERSION`; fi
+  - if [ "$MONGODB_VERSION" != "2.4*" ]; then sudo apt-get install -y --force-yes -qq mongodb-org-server=`echo $MONGODB_VERSION`; fi
   - mongod --version
   - if [ "$MONGODB_VERSION" = "2.4*" ]; then sudo service mongodb start; fi
-  - sudo apt-get install libzmq3-dev
+  - if [[ "$TRAVIS_NODE_VERSION" != 0.* ]]; then sudo apt-get -y -qq install g++-4.8; export CXX="g++-4.8" CC="gcc-4.8"; fi
+  - npm install
+
 before_script:
   - (cd node_modules/mosca/node_modules && rm -rf ascoltatori && mkdir ascoltatori && tar -c --exclude node_modules ../../.. | tar -x -C ascoltatori)
+
 script:
   - npm run coverage
+
 after_success:
   - npm run publish-coverage
+
 language: node_js
+
 node_js:
+  - 5.0
+  - 4.2
+  - 4.0
+  - iojs-v3
   - iojs-v2
   - iojs-v1
   - 0.12
   - 0.10
+
 services:
   - rabbitmq
   - redis-server
+
+matrix:
+  fast_finish: true
+  allow_failures:
+    - env: MONGODB_VERSION="3.2*"
+    - node_js: 5.0
+    - node_js: 4.2
+    - node_js: 4.0
+    - node_js: iojs-v3
