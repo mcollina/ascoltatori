@@ -45,7 +45,11 @@ describeAscoltatore("redis", function() {
 
   it('should get the redis client for publish already created', function(done) {
     var opts = redisSettings();
-    var initialConnection = opts.redis.createClient(opts.port, opts.host, opts);
+    var redisOpts = {};
+    for (var key in opts)
+      if (typeof opts[key] !== 'object') redisOpts[key] = opts[key]; // Avoid circular reference TypeError
+
+    var initialConnection = opts.redis.createClient(opts.port, opts.host, redisOpts);
     opts.client_conn = initialConnection;
     var that = this;
     that.instance = new ascoltatori.RedisAscoltatore(opts);
@@ -56,7 +60,11 @@ describeAscoltatore("redis", function() {
 
   it('should get the redis client for subscribing already created', function(done) {
     var opts = redisSettings();
-    var initialConnection = opts.redis.createClient(opts.port, opts.host, opts);
+    var redisOpts = {};
+    for (var key in opts)
+      if (typeof opts[key] !== 'object') redisOpts[key] = opts[key]; // Avoid circular reference TypeError;
+
+    var initialConnection = opts.redis.createClient(opts.port, opts.host, redisOpts);
     opts.sub_conn = initialConnection;
     var that = this;
     that.instance = new ascoltatori.RedisAscoltatore(opts);

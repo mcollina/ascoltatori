@@ -4,7 +4,7 @@
   "description": "The pub/sub library for node backed by Redis, MongoDB, AMQP (RabbitMQ), ZeroMQ, MQTT (Mosquitto) or just plain node!",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --recursive --bail --reporter spec test",
+    "test": "mocha --recursive --bail --reporter spec test --globals Promise",
     "ci": "mocha --recursive --bail --watch test",
     "coverage": "rm -rf coverage; istanbul cover _mocha -- --reporter spec --bail --globals Promise",
     "publish-coverage": "(cat coverage/lcov.info | coveralls)",
@@ -45,34 +45,34 @@
     "David Halls <dave@davedoesdev.com>"
   ],
   "devDependencies": {
-    "mocha": "^2.0.0",
-    "chai": "^1.10.0",
-    "sinon": "^1.10.3",
-    "sinon-chai": "^2.6.0",
-    "optimist": "~0.6.0",
-    "async_bench": "~0.5.0",
-    "dox-foundation": "0.5.4",
-    "mosca": "git://github.com/mcollina/mosca.git",
-    "jshint": "~2.5.2",
-    "istanbul": "~0.3.0",
-    "coveralls": "~2.11.0",
-    "pre-commit": "0.0.9"
+    "mocha": "^2.3.3",
+    "chai": "^3.4.1",
+    "sinon": "^1.17.2",
+    "sinon-chai": "^2.8.0",
+    "optimist": "^0.6.1",
+    "async_bench": "^0.5.1",
+    "dox-foundation": "^0.5.6",
+    "mosca": "~0.32.1",
+    "jshint": "^2.8.0",
+    "istanbul": "^0.4.0",
+    "coveralls": "^2.11.4",
+    "pre-commit": "^1.1.2"
   },
   "dependencies": {
-    "async": "~0.9.0",
-    "debug": "^2.0.0",
-    "node-uuid": "~1.4.0",
-    "qlobber": "~0.5.0"
+    "async": "~1.5.0",
+    "debug": "^2.2.0",
+    "node-uuid": "~1.4.3",
+    "qlobber": "~0.5.3"
   },
   "optionalDependencies": {
-    "nan": "~1.8.4",
-    "redis": "~0.12.1",
-    "hiredis": "^0.4.0",
-    "zmq": "~2.11.0",
+    "nan": "^2.1.0",
+    "redis": "^2.4.0",
+    "hiredis": "^0.4.1",
+    "zmq": "^2.14.0",
     "amqp": "~0.2.4",
-    "mqtt": "^1.0.0",
-    "mongodb": "~2.0.33",
+    "mqtt": "^1.5.0",
+    "mongodb": "^2.1.2",
     "eventemitter2": "~0.4.14",
-    "qlobber-fsq": "~0.3.0"
+    "qlobber-fsq": "~0.3.1"
   }
 }
