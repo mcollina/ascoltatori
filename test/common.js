@@ -104,6 +104,14 @@ global.prefixSettings = function() {
   r.args = [this.separator + "myprefix"];
   return r;
 };
+global.filterSettings = function() {
+  return { 
+      args: [{
+        filters: [{accepts: /hello/, ascoltatore: {type: "trie"}},
+              {accepts: /hebida/, ascoltatore: {type: "trie"}}] 
+      }]
+  };
+};
 
 var mosca = require("mosca");
 
