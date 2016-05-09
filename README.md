@@ -316,6 +316,35 @@ If you publish to a kafka topic that doesn't exist, that topic will be created u
 
 If you subscribe to a kafka topic that doesn't exist, that subscription will take affect only when something is published to the kafka topic through this ascoltatori.
 
+### Filter (Topic Based Routing)
+
+Configure multiple backends and use regular expressions to select the backend to which a topic belongs.
+
+```javascript
+var ascoltatori = require('ascoltatori');
+var settings = {
+  type: 'filter',
+  filters: [{accepts: /\$SYS/, ascoltatore: {type: "trie"},
+            {accepts: /.*/, ascoltatore: {
+               type: 'kafka',
+               json: false,
+               kafka: require("kafka-node"),
+               connectString: "localhost:2181",
+               clientId: "ascoltatori",
+               groupId: "ascoltatori",
+               defaultEncoding: "utf8",
+               encodings: {
+                 image: "buffer"
+               }
+             }}
+           ]
+};
+
+ascoltatori.build(settings, function (err, ascoltatore) {
+  // ...
+});
+```
+
 ## Domain support
 
 Ascoltatori supports the [node.js domain API](http://nodejs.org/api/domain.html).
