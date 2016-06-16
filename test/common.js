@@ -3,7 +3,6 @@
 global.sinon = require("sinon");
 global.chai = require("chai");
 global.expect = require("chai").expect;
-global.async = require("async");
 
 global.redisSettings = function() {
   return {
@@ -25,6 +24,18 @@ global.zeromqSettings = function(remote_ports) {
     port: "tcp://127.0.0.1:" + global.nextPort(),
     controlPort: "tcp://127.0.0.1:" + global.nextPort(),
     delay: 10
+  };
+};
+
+global.kafkaSettings = function() {
+  return {
+    json: false,
+    kafka: require("kafka-node"),
+    connectionString: "localhost:2181",
+    clientId: "test",
+    groupId: "test",
+    defaultEncoding: "utf8",
+    encodings: {image: "buffer", hello_42: "utf-8"}
   };
 };
 
@@ -62,6 +73,7 @@ global.trieSettings = function() {
 
 global.fileSystemSettings = function() {
   return {
+    single: false,
     json: false
   };
 };

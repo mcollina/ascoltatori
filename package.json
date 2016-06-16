@@ -1,7 +1,7 @@
 {
   "name": "ascoltatori",
-  "version": "2.0.1",
-  "description": "The pub/sub library for node backed by Redis, MongoDB, AMQP (RabbitMQ), ZeroMQ, MQTT (Mosquitto) or just plain node!",
+  "version": "3.0.2",
+  "description": "The pub/sub library for node backed by Redis, MongoDB, AMQP (RabbitMQ), ZeroMQ, Kafka, MQTT (Mosquitto) or just plain node!",
   "main": "index.js",
   "scripts": {
     "test": "mocha --recursive --bail --reporter spec test --globals Promise",
@@ -35,6 +35,7 @@
     "mosquitto",
     "mongodb",
     "mongo",
+    "kafka",
     "pub",
     "sub"
   ],
@@ -50,19 +51,18 @@
     "sinon": "^1.17.2",
     "sinon-chai": "^2.8.0",
     "optimist": "^0.6.1",
-    "async_bench": "^0.5.1",
     "dox-foundation": "^0.5.6",
-    "mosca": "1.0.1",
+    "mosca": "1.3.0",
     "jshint": "^2.8.0",
     "istanbul": "^0.4.0",
     "coveralls": "^2.11.4",
     "pre-commit": "^1.1.2"
   },
   "dependencies": {
-    "async": "~1.5.0",
     "debug": "^2.2.0",
     "node-uuid": "~1.4.3",
-    "qlobber": "~0.5.3"
+    "qlobber": "~0.7.0",
+    "steed": "^1.1.3"
   },
   "optionalDependencies": {
     "ioredis": "^1.15.1",
@@ -70,10 +70,11 @@
     "hiredis": "^0.4.1",
     "zmq": "^2.14.0",
     "amqp": "~0.2.4",
-    "mqtt": "^1.5.0",
-    "mongodb": "^2.1.2",
+    "mqtt": "^1.10.0",
+    "mongodb": "^2.1.18",
     "kerberos": "~0.0",
-    "eventemitter2": "~0.4.14",
-    "qlobber-fsq": "~0.4.1"
+    "eventemitter2": "^1.0.3",
+    "qlobber-fsq": "~3.0.0",
+    "kafka-node": "~0.3.2"
   }
 }

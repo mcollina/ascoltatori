@@ -1,3 +1,5 @@
+var steed = require("steed")();
+
 describeAscoltatore("zeromq", function() {
 
   var toClose = null;
@@ -7,15 +9,15 @@ describeAscoltatore("zeromq", function() {
   });
 
   afterEach(function(done) {
-    async.each(toClose, function(i, cb) {
+    steed.each(toClose, function(i, cb) {
       i.close(cb);
-    }, async.setImmediate.bind(null, done));
+    }, setImmediate.bind(null, done));
   });
 
   it("should sync two instances", function(done) {
     var instance = this.instance;
     var other = new ascoltatori.ZeromqAscoltatore(zeromqSettings());
-    async.series([
+    steed.series([
 
       function(cb) {
         other.on("ready", cb);
@@ -49,7 +51,7 @@ describeAscoltatore("zeromq", function() {
       }
     };
 
-    async.series([
+    steed.series([
 
       function(cb) {
         other.on("ready", cb);

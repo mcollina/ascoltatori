@@ -1,3 +1,5 @@
+var steed = require('steed')();
+
 describeAscoltatore("AMQP", function() {
   afterEach(function() {
     this.instance.close();
@@ -11,7 +13,7 @@ describeAscoltatore("AMQP", function() {
   it("should sync two instances", function(done) {
     var other = new ascoltatori.AMQPAscoltatore(this.instance._opts);
     var that = this;
-    async.series([
+    steed.series([
 
       function(cb) {
         other.on("ready", cb);

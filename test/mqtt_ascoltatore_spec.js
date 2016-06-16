@@ -1,3 +1,4 @@
+var steed = require('steed')();
 
 describeAscoltatore("MQTT", function() {
 
@@ -11,7 +12,7 @@ describeAscoltatore("MQTT", function() {
   it("should sync two instances", function(done) {
     var other = new ascoltatori.MQTTAscoltatore(MQTTSettings());
     var that = this;
-    async.series([
+    steed.series([
 
       function(cb) {
         other.on("ready", cb);
@@ -49,7 +50,7 @@ describe("MQTT Reconnect Test", function() {
     var that = this;
     var mosca = require("mosca");
     var msgReceived = false;
-  
+
     var moscaOpts = {
       port: 6884,
       stats: false,
@@ -57,51 +58,51 @@ describe("MQTT Reconnect Test", function() {
         level: "fatal"
       }
     };
-  
+
     var clientOpts = {
       json: false,
       mqtt: require("mqtt"),
       host: "127.0.0.1",
       port: 6884
     };
-  
+
     var mqttTestServer = new mosca.Server(moscaOpts);
     var newClient = new ascoltatori.MQTTAscoltatore(clientOpts);
-  
-    async.series([
+
+    steed.series([
       function(cb) {
-        newClient.once('ready',cb);  
+        newClient.once('ready',cb);
       },
-    
+
       function(cb) {
         // Subscribe to topic for test
         newClient.subscribe('reconnect/test', function() {
           newClient.emit('success');
         }, cb);
       },
-    
+
       // Stop the MQTT server
       function(cb) {
         mqttTestServer.close(cb);
       },
-    
+
       // Start the MQTT server
       function(cb) {
         mqttTestServer = new mosca.Server(moscaOpts, cb);
       },
-    
+
       // Setup listener and send message
       function(cb) {
         newClient.once('success', function() {
           msgReceived = true;
           cb();
         });
-      
+
         newClient.once('ready', function(){
-          newClient.publish('reconnect/test', 'blah');   
+          newClient.publish('reconnect/test', 'blah');
         });
       },
-    
+
     ], function() {
       if (msgReceived) {
         done();

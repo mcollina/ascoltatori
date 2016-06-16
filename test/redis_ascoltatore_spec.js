@@ -1,5 +1,6 @@
 var fs = require("fs");
 var Redis = require("ioredis");
+var steed = require("steed")();
 
 describeAscoltatore("redis", function() {
 
@@ -27,7 +28,7 @@ describeAscoltatore("redis", function() {
   it("should sync two instances", function(done) {
     var other = new ascoltatori.RedisAscoltatore(redisSettings());
     var that = this;
-    async.series([
+    steed.series([
 
       function(cb) {
         other.on("ready", cb);

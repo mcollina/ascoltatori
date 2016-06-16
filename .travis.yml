@@ -1,44 +1,42 @@
-env:
-  - MONGODB_VERSION="2.6*"
-  - MONGODB_VERSION="3.0*"
-  - MONGODB_VERSION="3.2*"
-
-before_install:
-  # GCC-4.8
-  - sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10
-  # MongoDB
-  - if [[ "$TRAVIS_NODE_VERSION" != 0.* ]]; then sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test; fi
-  - if [ "$MONGODB_VERSION" = "2.4*" ]; then echo "deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen" | sudo tee /etc/apt/sources.list.d/mongodb.list; fi
-  - if [ "$MONGODB_VERSION" = "2.6*" ]; then echo "deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen" | sudo tee /etc/apt/sources.list.d/mongodb.list; fi
-  - if [ "$MONGODB_VERSION" = "3.0*" ]; then echo "deb http://repo.mongodb.org/apt/ubuntu "$(lsb_release -sc)"/mongodb-org/3.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.0.list; fi
-  - if [ "$MONGODB_VERSION" = "3.2*" ]; then echo "deb http://repo.mongodb.org/apt/ubuntu "$(lsb_release -sc)"/mongodb-org/testing multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.1.list; fi
-  - sudo apt-get update -qq
-
-install:
-  - sudo apt-get install libzmq3-dev
-  - if [ "$MONGODB_VERSION" = "2.4*" ]; then sudo apt-get install -y -qq mongodb-10gen=`echo $MONGODB_VERSION`; fi
-  - if [ "$MONGODB_VERSION" != "2.4*" ]; then sudo apt-get install -y --force-yes -qq mongodb-org-server=`echo $MONGODB_VERSION`; fi
-  - mongod --version
-  - if [ "$MONGODB_VERSION" = "2.4*" ]; then sudo service mongodb start; fi
-  - if [[ "$TRAVIS_NODE_VERSION" != 0.* ]]; then sudo apt-get -y -qq install g++-4.8; export CXX="g++-4.8" CC="gcc-4.8"; fi
-  - npm install
-
-before_script:
-  - (cd node_modules/mosca/node_modules && rm -rf ascoltatori && mkdir ascoltatori && tar -c --exclude node_modules ../../.. | tar -x -C ascoltatori)
-
+language: node_js
+sudo: false
+node_js:
+  - "6"
+  - "4"
+  - "0.12"
 script:
   - npm run coverage
-
 after_success:
   - npm run publish-coverage
-
-language: node_js
-
-node_js:
-  - 0.12
-  - 4
-  - 5
-
 services:
   - rabbitmq
   - redis-server
+env:
+  global:
+    - CC=gcc-4.8
+    - CXX=g++-4.8
+  matrix:
+    - MONGODB_VERSION="3.2.5"
+    - MONGODB_VERSION="3.0.11"
+    - MONGODB_VERSION="2.6.12"
+before_install:
+  - wget http://fastdl.mongodb.org/linux/mongodb-linux-x86_64-$MONGODB_VERSION.tgz
+  - tar xfz mongodb-linux-x86_64-$MONGODB_VERSION.tgz
+  - export PATH=`pwd`/mongodb-linux-x86_64-$MONGODB_VERSION/bin:$PATH
+  - mkdir -p data/db
+  - mongod --dbpath=data/db > /dev/null &
+  - sleep 5
+  - wget http://www.us.apache.org/dist/kafka/0.9.0.1/kafka_2.11-0.9.0.1.tgz -O kafka.tgz
+  - mkdir -p kafka && tar xzf kafka.tgz -C kafka --strip-components 1
+  - nohup bash -c "cd kafka && bin/zookeeper-server-start.sh config/zookeeper.properties &"
+  - sleep 10
+  - nohup bash -c "cd kafka && bin/kafka-server-start.sh config/server.properties &"
+  - sleep 10
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - gcc-4.8
+      - g++-4.8
+      - libzmq3-dev
