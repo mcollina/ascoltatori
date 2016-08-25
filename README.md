@@ -13,6 +13,7 @@ Ascoltatori is a simple publish/subscribe library supporting the following broke
 * [ZeroMQ](http://www.zeromq.org/) to use Ascoltatori in a P2P fashion.
 * [QlobberFSQ](https://github.com/davedoesdev/qlobber-fsq), a shared file system queue.
 * [Apache Kafka](http://kafka.apache.org), a high-throughput distributed messaging system.
+* [Google PubSub](https://cloud.google.com/pubsub/overview), Google Cloud Pub/Sub brings the scalability, flexibility, and reliability of enterprise message-oriented middleware to the cloud..
 * Memory-only routing, using [Qlobber](https://github.com/davedoesdev/qlobber).
 
 Find out more about Ascoltatori reading the
@@ -138,7 +139,6 @@ ascoltatori.build(function (err, ascoltatore) {
 });
 ```
 
-
 ## Brokers
 
 Ascoltatori supports different brokers. Here we show how to use each of them.
@@ -247,7 +247,6 @@ ascoltatori.build(settings, function (err, ascoltatore) {
 });
 ```
 
-
 ### QlobberFSQ
 
 You can use any of the [QlobberFSQ constructor options](https://github.com/davedoesdev/qlobber-fsq#qlobberfsqoptions), for example:
@@ -316,6 +315,41 @@ If you publish to a kafka topic that doesn't exist, that topic will be created u
 
 If you subscribe to a kafka topic that doesn't exist, that subscription will take affect only when something is published to the kafka topic through this ascoltatori.
 
+### Google Cloud PubSub
+
+```javascript
+var ascoltatori = require('ascoltatori');
+var settings = {
+  type: 'pubsub',
+  topic: 'tester001',
+  ackDeadline: 15000,
+  gcloud: {
+    projectId: 'PROJECTNAME',
+    keyFilename: '/somePath/gcloud.json'
+  }
+};
+
+ascoltatori.build(settings, function (err, ascoltatore) {
+  // ...
+});
+```
+
+**Setup notes:**
+
+First, Ascoltatore will behave like Google's PubSub, learn more about the behavior here: https://cloud.google.com/pubsub/faq
+
+Setup Google Cloud PubSub:
+- Login in to the console: https://console.cloud.google.com
+- In the menu select: Pub/Sub
+- Click on: Create Topic and create a topic (for example: test001)
+- Click on the new created topic and click on "New Subscription".
+- Set the new subscription name. Make sure it is the same as the topic (for example: test001)
+
+In the settings you need to define:
+- type: pubsub.
+- topic: The topic name you set above. This is without the projects/[project-name]/topics slug.
+- ackDeadline: Set the acceptation deadline in milliseconds. There is a tradeoff: How higher the ackDeadline, the more certain you can be of delivery on every node. But, duplicates may occur. The lower the ackDeadline, will work visa versa. You can set this based on the Acknowledgment Deadline in the console. (for example: if 10 sec, you can set ackDeadline to 15000)
+- glcoud: an object as described here: https://googlecloudplatform.github.io/google-cloud-node/#/docs/pubsub/0.1.1/pubsub?method=PubSub
 
 ## Debugging
 
