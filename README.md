@@ -336,7 +336,7 @@ ascoltatori.build(settings, function (err, ascoltatore) {
 
 **Setup notes:**
 
-First, Ascoltatore will behave like Google's PubSub, learn more about the behavior here: https://cloud.google.com/pubsub/faq
+First, Ascoltatori will behave like Google's PubSub, learn more about the behavior here: https://cloud.google.com/pubsub/faq
 
 Setup Google Cloud PubSub:
 - Login in to the console: https://console.cloud.google.com
@@ -346,10 +346,10 @@ Setup Google Cloud PubSub:
 - Set the new subscription name. Make sure it is the same as the topic (for example: test001)
 
 In the settings you need to define:
-- type: pubsub.
-- topic: The topic name you set above. This is without the projects/[project-name]/topics slug.
-- ackDeadline: Set the acceptation deadline in milliseconds. There is a tradeoff: How higher the ackDeadline, the more certain you can be of delivery on every node. But, duplicates may occur. The lower the ackDeadline, will work visa versa. You can set this based on the Acknowledgment Deadline in the console. (for example: if 10 sec, you can set ackDeadline to 15000)
-- glcoud: an object as described here: https://googlecloudplatform.github.io/google-cloud-node/#/docs/pubsub/0.1.1/pubsub?method=PubSub
+- `type`: pubsub.
+- `topic`: The topic name you've set above. This is without the projects/[project-name]/topics slug.
+- `ackDeadline`: Set the acceptation deadline in milliseconds. There is a trade-off: How higher the ackDeadline, the more certain you can be of delivery on every node. But, duplicates may occur. The lower the ackDeadline, will work visa versa. You can set this based on the Acknowledgment Deadline in the console. (for example: if 10 sec, you can set ackDeadline to 15000)
+- `glcoud`: an object as described here: https://googlecloudplatform.github.io/google-cloud-node/#/docs/pubsub/0.1.1/pubsub?method=PubSub
 
 ## Debugging
 
