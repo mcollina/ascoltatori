@@ -47,7 +47,7 @@ describeAscoltatore("redis", function() {
   it('should get the redis client for publish already created', function(done) {
     var opts = redisSettings();
     var initialConnection = new Redis(opts);
-    opts.client_conn = initialConnection;
+    opts.pub_conn = initialConnection;
     var that = this;
     that.instance = new ascoltatori.RedisAscoltatore(opts);
     that.instance.subscribe("hello", wrap(done), function() {
