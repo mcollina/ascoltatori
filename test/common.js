@@ -199,7 +199,8 @@ global.describeAscoltatore = function(type, f) {
           }
         }
         args.push(settings);
-        this.instance = new global.ascoltatori[typeCap](args[0], args[1]);
+        var klass = global.ascoltatori[typeCap]();
+        this.instance = new klass(args[0], args[1]);
         if (custom) {
           intercept(this.instance, separator, wildcardOne, wildcardSome);
         }

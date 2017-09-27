@@ -13,8 +13,7 @@
   },
   "pre-commit": [
     "jshint-lib",
-    "jshint-test",
-    "test"
+    "jshint-test"
   ],
   "repository": {
     "type": "git",
@@ -64,7 +63,7 @@
     "qlobber": "~0.7.0",
     "steed": "^1.1.3"
   },
-  "optionalDependencies": {
+  "peerDependencies": {
     "ioredis": "^2.3.0",
     "msgpack-lite": "^0.1.20",
     "zmq": "^2.14.0",
