@@ -1,4 +1,4 @@
-Ascoltatori&nbsp;&nbsp;&nbsp;[![Build Status](https://travis-ci.org/mcollina/ascoltatori.png)](https://travis-ci.org/mcollina/ascoltatori) [![Coverage Status](https://coveralls.io/repos/mcollina/ascoltatori/badge.png?branch=master)](https://coveralls.io/r/mcollina/ascoltatori?branch=master)
+Ascoltatori&nbsp;&nbsp;&nbsp;[![Build Status](https://travis-ci.org/mcollina/ascoltatori.png)](https://travis-ci.org/mcollina/ascoltatori) [![Coverage Status](https://coveralls.io/repos/mcollina/ascoltatori/badge.png?branch=master)](https://coveralls.io/r/mcollina/ascoltatori?branch=master) [![dependencies Status](https://david-dm.org/mcollina/ascoltatori/status.svg)](https://david-dm.org/mcollina/ascoltatori)
 ========================================
 
 > TIP: Ascoltatori is an italian word which means listeners.
