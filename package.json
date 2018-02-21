@@ -60,6 +60,7 @@
   },
   "dependencies": {
     "debug": "^2.2.0",
+    "lodash": "^4.0.0",
     "uuid": "^3.0.0",
     "qlobber": "~0.7.0",
     "steed": "^1.1.3"
